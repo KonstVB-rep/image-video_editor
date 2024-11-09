@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        'auto-fit-200': 'repeat(auto-fit, minmax(240px, max-content))',
+      }
+    },
   },
   plugins: [],
 }
