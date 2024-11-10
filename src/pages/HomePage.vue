@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { onMounted, provide, reactive, watch } from 'vue'
+import { computed, onMounted, provide, reactive, watch } from 'vue'
 import axios from 'axios'
 import { ref } from 'vue'
 
 import Header from '../components/HeaderComponent.vue'
 import CardList from '../components/CardList.vue'
 import Drawer from '@/components/DrawerComponent.vue'
+import CardItemDrawer from '@/components/CardItemDrawer.vue'
 
 const items = ref<SneakerType[] | SneakerTypeShort[]>([])
 
 const drawerOpen = ref(false)
+const cart = ref<SneakerType[]>([])
 
 const closeDrawer = () => {
   console.log('clicked')
@@ -116,13 +118,55 @@ const addToFavorites = async (item: SneakerType) => {
   }
 }
 
-provide('addToFavorites', addToFavorites)
+const addToCart = async (item: SneakerType) => {
+  item.isAdded = true
+  cart.value.push(item)
+}
+
+const removeFromCart = (item: SneakerType) => {
+  item.isAdded = false
+  cart.value.splice(cart.value.indexOf(item), 1)
+}
+
+const toggleAddCart = async (item: SneakerType) => {
+  if (item.isAdded) {
+    removeFromCart(item)
+  } else {
+    addToCart(item)
+  }
+}
+
+const totalCartPrice = computed(() => cart.value?.reduce((acc, item) => acc + item.price, 0))
+
+const createOrder = async () => {
+  try {
+    const response = await axios.post('https://34c9a347072a4183.mokky.dev/orders', {
+      items: cart,
+      totalPrice: totalCartPrice,
+    })
+    const { data } = response
+    if (data.status !== 200) {
+      throw new Error('Something went wrong!Try again')
+    }
+    cart.value = []
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+provide('cart', {
+  cart,
+  addToCart,
+  removeFromCart,
+  toggleAddCart,
+  totalCartPrice,
+})
 </script>
 
 <template>
-  <Drawer v-if="drawerOpen" @closeDrawer="closeDrawer" />
-  <div class="shadow-grey-200 m-auto mt-20 w-full max-w-7xl rounded-xl bg-white shadow-xl">
-    <Header @openDrawer="openDrawer" />
+  <Drawer v-if="drawerOpen" @close-drawer="closeDrawer" />
+  <div class="shadow-grey-200 m-auto w-full max-w-7xl rounded-xl bg-white pt-20 shadow-xl">
+    <Header @open-drawer="openDrawer" :totalCartPrice="totalCartPrice" />
 
     <div class="p-10">
       <div class="mb-10 flex items-center justify-between">
@@ -150,7 +194,7 @@ provide('addToFavorites', addToFavorites)
         </div>
       </div>
 
-      <CardList :items="items as SneakerType[]" @addToFavorites="addToFavorites" />
+      <CardList :items="items as SneakerType[]" @add-to-favorites="addToFavorites" />
     </div>
   </div>
 </template>

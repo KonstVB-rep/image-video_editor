@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
+const props = defineProps({
+  totalCartPrice: Number,
+})
 const emit = defineEmits(['openDrawer'])
+
 </script>
 
 <template>
@@ -14,18 +20,22 @@ const emit = defineEmits(['openDrawer'])
 
     <ul class="flex items-center gap-10">
       <li class="flex cursor-pointer items-center gap-3">
-        <button @click="() => emit('openDrawer')">
+        <button @click="() => emit('openDrawer')" class="btn-std">
           <img src="/cart.svg" alt="Cart" />
-          <b>1205 руб.</b>
+          <b>{{ totalCartPrice }} руб.</b>
         </button>
       </li>
       <li class="flex cursor-pointer items-center gap-3">
-        <img src="/heart.svg" alt="Favorite" />
-        <span>Закладки</span>
+        <button class="btn-std">
+          <img src="/heart.svg" alt="Favorite" />
+          <span>Закладки</span>
+        </button>
       </li>
       <li class="flex cursor-pointer items-center gap-3">
-        <img src="/profile.svg" alt="Favorite" />
-        <span>Профиль</span>
+        <button class="btn-std">
+          <img src="/profile.svg" alt="Favorite" />
+          <span>Профиль</span>
+        </button>
       </li>
     </ul>
   </header>

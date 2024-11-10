@@ -8,5 +8,14 @@ type SneakerType = {
   isAdded: boolean
 }
 
+type SneakerTypeShort = Omit<SneakerType, 'favoriteId' | 'isFavorite' | 'isAdded'>
 
-type SneakerTypeShort =Omit<SneakerType, 'favoriteId'| 'isFavorite'| 'isAdded'>
+type Cart = {
+  addToCart: (item: SneakerType) => void
+  toggleAddCart: (item: SneakerType) => void
+  removeFromCart: (item: SneakerType) => void
+  cart: SneakerType[]
+  totalCartPrice: {
+    value: number
+  }
+}

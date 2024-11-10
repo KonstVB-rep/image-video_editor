@@ -1,17 +1,13 @@
 <script setup lang="ts">
+import { inject } from 'vue'
 import Card from './CardComponent.vue'
 
-const props = defineProps({
+defineProps({
   items: Array<SneakerType>,
 })
 
-const onClickAdd = (): void => {
-  console.log('Add')
- }
-
- const emit = defineEmits(['addToFavorites'])
-
-
+const emit = defineEmits(['addToFavorites'])
+const { toggleAddCart } = inject('cart') as Cart
 </script>
 
 <template>
@@ -26,7 +22,7 @@ const onClickAdd = (): void => {
       :isAdded="item.isAdded"
       :favoriteId="item.favoriteId"
       :isFavorite="item.isFavorite"
-      :onClickAdd="onClickAdd"
+      :onClickAdd="() => toggleAddCart(item)"
       :onClickFavorite="() => emit('addToFavorites', item)"
     />
   </div>

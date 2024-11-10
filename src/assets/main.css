@@ -2,8 +2,13 @@
 @import 'tailwindcss/components.css';
 @import 'tailwindcss/utilities.css';
 
+
 body {
   margin: 0;
   padding: 0;
   background-color: rgb(247 254 231);
+}
+
+.btn-std {
+  @apply hover-hover:hover:scale-105 hover-hover:active:scale-95 hover-hover:hover:shadow hover-none:active:shadow transition duration-300 hover-none:active:scale-105 flex items-center gap-3;
 }
