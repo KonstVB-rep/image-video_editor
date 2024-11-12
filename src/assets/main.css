@@ -6,4 +6,12 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(247 254 231);
+  min-height: 100dvh;
+}
+#app {
+  min-height: 100dvh;
+}
+
+.btn-std {
+  @apply flex items-center gap-3 transition duration-300 hover-hover:hover:scale-105 hover-hover:hover:shadow hover-hover:active:scale-95 hover-none:active:scale-105 hover-none:active:shadow;
 }

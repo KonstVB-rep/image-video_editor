@@ -1,21 +1,18 @@
 <script setup lang="ts">
 import Card from './CardComponent.vue'
 
-const props = defineProps({
+defineProps({
   items: Array<SneakerType>,
 })
 
-const onClickAdd = (): void => {
-  console.log('Add')
- }
+const emit = defineEmits(['addToFavorites', 'addToCart'])
 
- const emit = defineEmits(['addToFavorites'])
 
 
 </script>
 
 <template>
-  <div class="grid grid-cols-auto-fit-200 gap-5">
+  <div class="grid grid-cols-auto-fit-200 gap-5 justify-center" v-auto-animate>
     <Card
       v-for="item in items"
       :key="item.id"
@@ -26,7 +23,7 @@ const onClickAdd = (): void => {
       :isAdded="item.isAdded"
       :favoriteId="item.favoriteId"
       :isFavorite="item.isFavorite"
-      :onClickAdd="onClickAdd"
+      :onClickAdd="() => emit('addToCart', item)"
       :onClickFavorite="() => emit('addToFavorites', item)"
     />
   </div>

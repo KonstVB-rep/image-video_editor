@@ -1,26 +1,32 @@
 <script setup lang="ts">
+import type { PropType } from 'vue'
 
 defineProps({
   id: Number,
   title: String,
   img: String,
-  price: Number
+  price: Number,
+  onClickRemove: {
+    type: Function as PropType<() => void>,
+  },
 })
+
+const emit = defineEmits(['onClickRemove'])
+
 </script>
 
 <template>
-  <div class="flex items-center border border-slate-200 p-4 rounded-xl gap-4">
-    <img class="w-16 h-16" :src="img" :alt="title" />
+  <div class="grid grid-cols-[1fr_1.5fr] gap-2 rounded-xl border border-slate-200 p-2">
+    <img class="h-full w-full cover" :src="img" :alt="title" />
 
-    <div class="flex flex-col flex-1">
+    <div class="flex flex-1 flex-col">
       <p>{{ title }}</p>
 
-      <div class="flex justify-between mt-2">
+      <div class="mt-2 flex justify-between">
         <b class="flex-1">{{ price }} руб.</b>
-        <img
-          class="opacity-40 hover:opacity-100 cursor-pointer transition"
-          src="/close.svg"
-        />
+        <button class="btn-std self-center rounded-md" @click="emit('onClickRemove')">
+          <img class="cursor-pointer opacity-40 transition hover:opacity-100" src="/close.svg" />
+        </button>
       </div>
     </div>
   </div>
