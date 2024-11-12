@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import CardItemDrawer from './CardItemDrawer.vue';
+import { inject } from 'vue'
+import CardItemDrawer from './CardItemDrawer.vue'
 
+const { removeFromCart, cart } = inject('cart') as Cart
 </script>
 
 <template>
-  <CardItemDrawer
-    v-for="i in 4"
-    :key="i"
-    :id="i"
-    :title="`Мужские Кроссовки ${i}`"
-    :img="`/sneakers/sneakers-${i}.jpg`"
-    :price="i * 1000"
-  />
+  <div v-auto-animate class="flex h-full flex-col gap-5 overflow-y-auto px-2">
+    <CardItemDrawer
+      v-for="item in cart"
+      :key="item.id"
+      :id="item.id"
+      :title="`Мужские Кроссовки ${item.title}`"
+      :img="item.imageUrl"
+      :price="item.price"
+      @on-click-remove="() => removeFromCart(item)"
+    />
+  </div>
 </template>
