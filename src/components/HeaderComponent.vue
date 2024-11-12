@@ -1,22 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const props = defineProps({
   totalCartPrice: Number,
 })
 const emit = defineEmits(['openDrawer'])
-
 </script>
 
 <template>
-  <header class="flex justify-between border-b border-slate-200 px-10 py-8">
-    <div class="flex items-center gap-4">
-      <img src="/logo.png" alt="Logo" class="w-11" />
-      <div>
-        <h2 class="text-xl font-bold uppercase">Vue Sneakers</h2>
-        <p class="text-slate-400">Магазин лучших кроссовок</p>
+  <header
+    class="flex flex-col items-center gap-5 border-b border-slate-200 px-10 py-8 md:flex-row md:justify-between"
+  >
+    <RouterLink to="/">
+      <div class="flex items-center gap-4">
+        <img src="/logo.png" alt="Logo" />
+        <div>
+          <h2 class="text-xl font-bold uppercase">Vue Sneakers</h2>
+          <p class="text-slate-400">Магазин лучших кроссовок</p>
+        </div>
       </div>
-    </div>
+    </RouterLink>
 
     <ul class="flex items-center gap-10">
       <li class="flex cursor-pointer items-center gap-3">
@@ -26,10 +30,10 @@ const emit = defineEmits(['openDrawer'])
         </button>
       </li>
       <li class="flex cursor-pointer items-center gap-3">
-        <button class="btn-std">
+        <RouterLink to="/favorites" class="btn-std">
           <img src="/heart.svg" alt="Favorite" />
           <span>Закладки</span>
-        </button>
+        </RouterLink>
       </li>
       <li class="flex cursor-pointer items-center gap-3">
         <button class="btn-std">

@@ -14,7 +14,9 @@ type Cart = {
   addToCart: (item: SneakerType) => void
   toggleAddCart: (item: SneakerType) => void
   removeFromCart: (item: SneakerType) => void
-  cart: SneakerType[]
+  cart: {
+    value: SneakerType[]
+  },
   totalCartPrice: {
     value: number
   }

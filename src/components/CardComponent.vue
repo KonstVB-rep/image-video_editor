@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, type PropType } from 'vue'
+import { type PropType } from 'vue'
 
 const props = defineProps({
   id: Number,
@@ -24,7 +24,7 @@ const props = defineProps({
   <div
     class="cursor-pointerrounded-xl relative grid w-full max-w-[280px] grid-rows-[60%_20%_20%] border border-slate-100 p-8 transition hover:-translate-y-2 hover:transform hover:shadow-xl"
   >
-    <div class="absolute left-8 top-8">
+    <div class="absolute left-8 top-8" v-if="onClickFavorite">
       <button @click="onClickFavorite" class="btn-std rounded-md">
         <img :src="!isFavorite ? '/like-1.svg' : '/like-2.svg'" alt="Favorite" />
       </button>

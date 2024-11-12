@@ -16,7 +16,7 @@ const emit = defineEmits(['onClickRemove'])
 </script>
 
 <template>
-  <div class="grid grid-cols-[1fr_1.5fr] items-center gap-4 rounded-xl border border-slate-200 p-4">
+  <div class="grid grid-cols-[1fr_1.5fr] gap-2 rounded-xl border border-slate-200 p-2">
     <img class="h-full w-full cover" :src="img" :alt="title" />
 
     <div class="flex flex-1 flex-col">
